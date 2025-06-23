@@ -30,7 +30,9 @@ export class ConnexionComponent {
 
   onConnexion() {
     this.http
-      .post('http://localhost:5000/connexion', this.formulaire.value)
-      .subscribe();
+      .post('http://localhost:5000/connexion', this.formulaire.value, {
+        responseType: 'text',
+      })
+      .subscribe((jwt) => localStorage.setItem('token', jwt)); // stocker le JWT dans le localstorage)
   }
 }

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-connexion',
@@ -22,6 +23,7 @@ export class ConnexionComponent {
   http = inject(HttpClient);
   notification = inject(NotificationService);
   router = inject(Router);
+  authService = inject(AuthService)
 
   formulaire = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -33,6 +35,10 @@ export class ConnexionComponent {
       .post('http://localhost:5000/connexion', this.formulaire.value, {
         responseType: 'text',
       })
-      .subscribe((jwt) => localStorage.setItem('token', jwt)); // stocker le JWT dans le localstorage)
+      .subscribe((jwt) => {
+        this.authService.decodeJwt(jwt)
+        this.notification.show('Vous êtes connecté', 'valid');
+        this.router.navigateByUrl('/accueil');
+      });
   }
 }

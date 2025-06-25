@@ -35,7 +35,7 @@
           @if(authService.user?.role == 'administrateur' ||
           authService.user?.role == 'vendeur' ) {
 
-          <button mat-button>Modifier</button>
+          <button mat-button routerLink="/modifier-produit/{{item.id}}">Modifier</button>
           <button mat-button (click)="onClickSuppressionProduit(item)">
             Supprimer
           </button>

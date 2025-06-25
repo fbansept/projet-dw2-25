@@ -22,5 +22,7 @@
     </mat-error>
   </mat-form-field>
 
-  <button mat-raised-button type="submit">Ajouter le produit</button>
+  <button mat-raised-button type="submit">
+    {{ produitEdite ? "Modifier le produit" : "Ajouter le produit" }}
+  </button>
 </form>
